@@ -1,0 +1,180 @@
+---
+title: "Flight Delays Analysis using R"
+author: "Manish Patwardhan"
+date: "2026-01-27"
+output: word_document
+---
+
+# Step 1: Install Required Packages
+
+```{r}
+options(repos = c(CRAN = "https://cloud.r-project.org"))
+install.packages("readxl")
+library(readxl)
+```
+
+```{r}
+options(repos = c(CRAN = "https://cloud.r-project.org"))
+install.packages("ggplot2")
+library(ggplot2)
+```
+
+```{r}
+options(repos = c(CRAN = "https://cloud.r-project.org"))
+install.packages("dplyr")
+library(dplyr)
+```
+
+# Step 2: Read the Dataset + Understand Data
+
+```{r}
+# Load dataset
+flight_data <- read_excel("flightdelays.xlsx")
+```
+
+```{r}
+# Viwe first rows
+head(flight_data)
+```
+
+```{r}
+# Structure of dataset
+str(flight_data)
+```
+
+```{r}
+# Dimensions (rows, columns)
+dim(flight_data)
+```
+
+```{r}
+# Check missing values
+colSums(is.na(flight_data))
+```
+
+```{r}
+# Dimensions (rows, columns)
+dim(flight_data)
+```
+
+# Step 3: Summary of Descriptive Statistics
+
+```{r}
+# Summary of Descriptive Statistics
+summary(flight_data)
+```
+
+```{r}
+# Histograms (Relationships)
+ggplot(flight_data, aes(x = schedtime)) +
+  geom_histogram() +
+  ggtitle("Histogram of Scheduled Time")
+```
+
+# Step 4: Histograms (Relationships)
+
+```{r}
+# Scheduled Time
+ggplot(flight_data, aes(x = schedtime)) +
+  geom_histogram() +
+  ggtitle("Histogram of Scheduled Time")
+```
+
+```{r}
+# Carrier
+ggplot(flight_data, aes(x = carrier)) +
+  geom_bar() +
+  ggtitle("Flights by Carrier")
+```
+
+```{r}
+# Destination
+ggplot(flight_data, aes(x = dest)) +
+  geom_bar() +
+  ggtitle("Flights by Destination")
+```
+
+```{r}
+# Origin
+ggplot(flight_data, aes(x = origin)) +
+  geom_bar() +
+  ggtitle("Flights by Origin Airport")
+```
+
+```{r}
+# Weather (0=On time, 1=Delayed)
+ggplot(flight_data, aes(x = weather)) +
+  geom_bar() +
+  ggtitle("Weather Impact on Delays")
+```
+
+```{r}
+# Day of Week
+ggplot(flight_data, aes(x = dayweek)) +
+  geom_bar() +
+  ggtitle("Flights by Day of Week")
+```
+
+# Step 5: Scatter Plot (On Time vs Delayed Flights)
+
+```{r}
+ggplot(flight_data, aes(x = distance, y = deptime, color = as.factor(delay))) +
+  geom_point() +
+  ggtitle("Scatter Plot: Distance vs Departure Time") +
+  labs(color = "Delay Status")
+```
+
+# Step 6: Box Plot (Delay by Day of Month)
+
+```{r}
+ggplot(flight_data, aes(x = as.factor(daymonth), y = deptime)) +
+  geom_boxplot() +
+  ggtitle("Departure Time Distribution Across Month Days")
+```
+
+# Step 7: Define Hours of Departure
+
+```{r}
+flight_data$dep_hour <- floor(flight_data$deptime / 100)
+
+head(flight_data$dep_hour)
+```
+
+# Step 8: Categorical Representation Using Table
+
+```{r}
+table(flight_data$carrier, flight_data$delay)
+```
+
+# Step 9: Redefine Delay Variable
+
+```{r}
+flight_data$delay_status <- ifelse(flight_data$delay == 1, "Delayed", "On Time")
+
+table(flight_data$delay_status)
+```
+
+# Step 10: Summary of Major Variables
+
+```{r}
+summary(flight_data$distance)
+summary(flight_data$schedtime)
+summary(flight_data$deptime)
+```
+
+# Step 11: Histograms of Major Variables
+
+```{r}
+ggplot(flight_data, aes(x = distance)) +
+  geom_histogram() +
+  ggtitle("Histogram of Flight Distance")
+```
+
+# Step 12: Pie Chart (Flights Delayed)
+
+```{r}
+delay_count <- table(flight_data$delay_status)
+
+pie(delay_count,
+    main = "Delayed vs On-Time Flights")
+```
