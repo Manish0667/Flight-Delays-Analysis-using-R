@@ -62,10 +62,3 @@ Course-End Project | Data Analytics with R
 Date: January 2026  
 
 ---
-
-## 🔗 Repository Structure
-│-- Flight Delays.r
-│-- Flight Delays Analysis using R.Rmd
-│-- Flight-Delays-Report.PDF
-│-- flightdelays.xlsx
-│-- README.md
