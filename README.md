@@ -5,8 +5,6 @@ This project focuses on analyzing flight delay patterns and understanding how fa
 
 The analysis was performed using **R programming** with exploratory data analysis (EDA) and visualizations.
 
-“This project was completed as part of Simplilearn’s Data Analytics with R course-end project.”
-
 ---
 
 ## 🎯 Objectives
@@ -62,5 +60,5 @@ This project helped understand flight delay patterns and improved practical skil
 **Manish Patwardhan**  
 Course-End Project | Data Analytics with R  
 Date: January 2026  
-
+This project was completed as part of Simplilearn’s Data Analytics with R course-end project.
 ---
